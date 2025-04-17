@@ -45,16 +45,3 @@ CareConnectBot é um assistente de WhatsApp pensado para quem deseja se tornar c
 - **Memorização**: Repetição diária e revisão facilitam a retenção.
 - **Motivação**: Mensagens amigáveis e lembretes incentivam a continuidade.
 
-## Próximos Passos
-
-1. Envie “iniciar curso” para começar sua jornada.
-2. Interaja com as aulas e quizzes diariamente.
-3. Use o menu sempre que precisar de ajuda ou quiser conferir seu progresso.
-
-
-> **Quer parar por hoje?** Basta enviar “cancelar” e confirmar para pausar o curso. Esperamos vê‑lo de volta em breve!
-
----
-
-_Created with cuidado humano para transformar o aprendizado em um diálogo acolhedor._
-
