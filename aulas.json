@@ -1,0 +1,422 @@
+[
+  {
+    "titulo": "Aula 1: Hipertensão em Idosos",
+    "conteudo": "A hipertensão arterial é quando a pressão do sangue nas artérias está constantemente acima de 140/90 mmHg, podendo levar a complicações como AVC, infarto e problemas renais. É importante medir a pressão regularmente e adotar hábitos saudáveis, como dieta equilibrada e exercícios físicos.",
+    "pergunta": "O que é hipertensão arterial?",
+    "opcoes": [
+      "a) Uma infecção no sangue",
+      "b) Um problema nos rins",
+      "c) Pressão arterial acima dos valores normais"
+    ],
+    "respostaCorreta": "c",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 1!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (c): Pressão arterial acima dos valores normais.",
+    "driveLink": "https://drive.google.com/file/d/1iJgbeo2Weg5gr_MI5-nu_h5PYFM-sxOx/view?usp=share_links"
+  },
+  {
+    "titulo": "Aula 2: Envelhecimento Saudável",
+    "conteudo": "Envelhecer com saúde significa manter qualidade de vida, autonomia e bem-estar físico, mental e social. Isso inclui adotar hábitos como alimentação saudável, prática regular de exercícios, sono adequado e participação em atividades sociais.",
+    "pergunta": "O que é envelhecimento saudável?",
+    "opcoes": [
+      "a) Apenas ausência de doenças",
+      "b) Manter a juventude física",
+      "c) Viver com qualidade de vida e autonomia"
+    ],
+    "respostaCorreta": "c",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 2!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (c): Viver com qualidade de vida e autonomia.",
+    "driveLink": "https://drive.google.com/file/d/1YpJqMLyjWTfxRx6Dofm15wkXIfanVgmo/view?usp=share_link"
+  },
+  {
+    "titulo": "Aula 3: Papel do Cuidador",
+    "conteudo": "O cuidador de idosos, seja familiar, amigo ou profissional, oferece suporte físico, emocional e social, auxiliando em tarefas como higiene, alimentação, medicação e locomoção, sempre promovendo a autonomia e o bem-estar do idoso.",
+    "pergunta": "Qual das alternativas descreve corretamente o papel do cuidador?",
+    "opcoes": [
+      "a) Realizar apenas tarefas técnicas sem interação emocional",
+      "b) Cuidar das necessidades físicas e emocionais com empatia",
+      "c) Trabalhar isoladamente, sem envolver a família"
+    ],
+    "respostaCorreta": "b",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 3!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (b): Cuidar das necessidades físicas e emocionais com empatia.",
+    "driveLink": "https://drive.google.com/file/d/10YQNknoMB1dK-Mg-e4VowoZwkjeXw02A/view?usp=share_link"
+  },
+  {
+    "titulo": "Aula 4: Independência na Terceira Idade",
+    "conteudo": "Independência para a pessoa idosa significa ter autonomia para realizar atividades diárias, tomar decisões e manter sua dignidade, com suporte mínimo quando necessário, respeitando suas capacidades e limitações.",
+    "pergunta": "O que significa independência para a pessoa idosa?",
+    "opcoes": [
+      "a) Depender completamente de terceiros",
+      "b) Realizar todas as atividades sem ajuda",
+      "c) Manter autonomia com suporte mínimo"
+    ],
+    "respostaCorreta": "c",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 4!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (c): Manter autonomia com suporte mínimo.",
+    "driveLink": "https://drive.google.com/file/d/1ta1huS-HN-L8wPsnwnI29i8Q1UjPD2pr/view?usp=share_link"
+  },
+  {
+    "titulo": "Aula 5: Prevenção de Acidentes Domésticos",
+    "conteudo": "Medidas como instalar barras de apoio, usar tapetes antiderrapantes, melhorar a iluminação e remover obstáculos ajudam a prevenir acidentes domésticos, como quedas, garantindo a segurança do idoso em casa.",
+    "pergunta": "Qual medida ajuda a prevenir acidentes domésticos em idosos?",
+    "opcoes": [
+      "a) Deixar objetos espalhados no chão",
+      "b) Usar tapetes antiderrapantes e barras de apoio",
+      "c) Manter a casa com pouca iluminação"
+    ],
+    "respostaCorreta": "b",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 5!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (b): Usar tapetes antiderrapantes e barras de apoio.",
+    "driveLink": "https://drive.google.com/file/d/18OxulD1Kzqdamdqxso-atm6dAeETbyjB/view?usp=share_link"
+  },
+  {
+    "titulo": "Aula 6: Comunicação com Idosos",
+    "conteudo": "A melhor forma de se comunicar com uma pessoa idosa é falar de maneira clara, respeitosa e paciente, usando tom de voz adequado, escutando ativamente e considerando possíveis limitações auditivas ou cognitivas.",
+    "pergunta": "Qual é a melhor forma de se comunicar com uma pessoa idosa?",
+    "opcoes": [
+      "a) Falar rápido e em voz alta sem pausas",
+      "b) Usar linguagem clara, respeitosa e ouvir com atenção",
+      "c) Evitar conversar para não causar confusão"
+    ],
+    "respostaCorreta": "b",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 6!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (b): Usar linguagem clara, respeitosa e ouvir com atenção.",
+    "driveLink": "https://drive.google.com/file/d/1NOQc9n71cZtKD1FGUb8zHZHDIqjkW9xZ/view?usp=share_link"
+  },
+  {
+    "titulo": "Aula 7: Significado de Cuidar",
+    "conteudo": "Cuidar significa promover o bem-estar físico, emocional e social do idoso, mesmo sem possibilidade de cura, criando vínculo de empatia, respeito e atenção integral, além de praticar o autocuidado para oferecer um cuidado de qualidade.",
+    "pergunta": "O que melhor define o verdadeiro significado de 'cuidar'?",
+    "opcoes": [
+      "a) Tratar apenas doenças com medicamentos",
+      "b) Realizar tarefas técnicas de forma rápida",
+      "c) Promover bem-estar físico, emocional e social com empatia"
+    ],
+    "respostaCorreta": "c",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 7!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (c): Promover bem-estar físico, emocional e social com empatia.",
+    "driveLink": "https://drive.google.com/file/d/10jdSqEgaeWBeJ6v6q6JakDqyZ6mAIY1q/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 8: Atribuições do Cuidador",
+    "conteudo": "Entre as principais atribuições do cuidador estão auxiliar nas atividades diárias, oferecer apoio emocional e atuar como elo entre o idoso, a família e a equipe de saúde, mantendo uma comunicação clara e respeitosa.",
+    "pergunta": "Qual das alternativas descreve corretamente uma das principais atribuições do cuidador?",
+    "opcoes": [
+      "a) Prescrever medicamentos e realizar diagnósticos",
+      "b) Atuar como elo entre o idoso, família e equipe de saúde",
+      "c) Cuidar apenas quando solicitado pela família"
+    ],
+    "respostaCorreta": "b",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 8!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (b): Atuar como elo entre o idoso, família e equipe de saúde.",
+    "driveLink": "https://drive.google.com/file/d/1jfIhEheMSnw-Rl6YzslGn7UAc5_ZbOGX/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 9: Violência Psicológica contra o Idoso",
+    "conteudo": "A violência psicológica contra o idoso inclui críticas constantes, humilhações, constrangimentos ou ameaças, que podem causar medo, retraimento e baixa autoestima. É essencial identificar e denunciar essas situações, ligando para o 190 em emergências.",
+    "pergunta": "Qual das situações abaixo pode ser considerada violência psicológica contra o idoso?",
+    "opcoes": [
+      "a) Ajudar o idoso com as tarefas diárias",
+      "b) Fazer críticas constantes e humilhar o idoso",
+      "c) Comprar medicamentos conforme orientação médica"
+    ],
+    "respostaCorreta": "b",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 9!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (b): Fazer críticas constantes e humilhar o idoso.",
+    "driveLink": "https://drive.google.com/file/d/18ZbXaHQ1MLHRgAIxxytsaLCP4ebdZCEs/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 10: Acidente Vascular Encefálico (AVE)",
+    "conteudo": "O Acidente Vascular Encefálico (AVE) é comum em idosos após os 65 anos, sendo uma das principais causas de incapacidade. Pode ser prevenido com controle da pressão arterial, diabetes, sedentarismo e acompanhamento médico regular.",
+    "pergunta": "Qual das alternativas a seguir está correta sobre o AVE em idosos?",
+    "opcoes": [
+      "a) O AVE é raro em idosos e não tem relação com a idade",
+      "b) O AVE não pode ser evitado, pois ocorre de forma imprevisível",
+      "c) O AVE é comum após os 65 anos, mas pode ser prevenido com cuidados"
+    ],
+    "respostaCorreta": "c",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 10!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (c): O AVE é comum após os 65 anos, mas pode ser prevenido com cuidados.",
+    "driveLink": "https://drive.google.com/file/d/1LRnhezAWe0g2Wr1ukMnfrdSlZMJJi9YB/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 11: Cuidados ao Levantar Pacientes com Alzheimer",
+    "conteudo": "Antes de levantar um paciente com Alzheimer, é essencial verificar se há ferimentos, comunicar-se com calma, explicando o que será feito, e acionar o SAMU (192) em caso de ferimentos graves, garantindo segurança e conforto.",
+    "pergunta": "O que deve ser feito antes de levantar um paciente com Alzheimer?",
+    "opcoes": [
+      "a) Levantá-lo rapidamente para evitar confusão",
+      "b) Não conversar com o paciente, pois ele pode se assustar",
+      "c) Verificar ferimentos e explicar com calma o procedimento"
+    ],
+    "respostaCorreta": "c",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 11!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (c): Verificar ferimentos e explicar com calma o procedimento.",
+    "driveLink": "https://drive.google.com/file/d/1nbh4Rrz8-wMdygkf4fhXS__KSj3XCNmu/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 12: Atitudes do Cuidador",
+    "conteudo": "O cuidador deve agir com profissionalismo, seguir orientações médicas, evitar distrações como uso indevido do celular, nunca deixar o idoso sozinho e promover sua segurança, respeitando suas capacidades.",
+    "pergunta": "Qual das atitudes abaixo é adequada para um cuidador de idosos?",
+    "opcoes": [
+      "a) Compartilhar problemas pessoais com o idoso",
+      "b) Usar o celular frequentemente durante o trabalho",
+      "c) Seguir orientações médicas e promover segurança"
+    ],
+    "respostaCorreta": "c",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 12!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (c): Seguir orientações médicas e promover segurança.",
+    "driveLink": "https://drive.google.com/file/d/1VPCcPmNs0j0JVkWgSFdFojPY2fgrjI3m/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 13: Prevenção de Quedas",
+    "conteudo": "Para prevenir quedas, é importante manter o ambiente iluminado, usar calçados adequados, instalar barras de apoio, consumir alimentos ricos em cálcio e vitamina D, praticar exercícios e consultar um geriatra regularmente.",
+    "pergunta": "Qual das ações abaixo contribui para prevenir quedas em idosos?",
+    "opcoes": [
+      "a) Usar sapatos com solas lisas em locais escuros",
+      "b) Manter o ambiente iluminado e usar calçados adequados",
+      "c) Evitar atividades físicas para manter repouso"
+    ],
+    "respostaCorreta": "b",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 13!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (b): Manter o ambiente iluminado e usar calçados adequados.",
+    "driveLink": "https://drive.google.com/file/d/-dgjZlNE5d3ShzOnZtXDrEu19Opw4Glj/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 14: Qualidades do Cuidador",
+    "conteudo": "Um cuidador de idosos deve ter paciência, empatia, preparo técnico e respeito pela história de vida do idoso, agindo com sensibilidade e profissionalismo, sem imposições ou atitudes autoritárias.",
+    "pergunta": "Qual das qualidades é essencial para um cuidador de idosos?",
+    "opcoes": [
+      "a) Ser autoritário para manter o controle",
+      "b) Ter paciência, empatia e respeito",
+      "c) Tratar o idoso como criança"
+    ],
+    "respostaCorreta": "b",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 14!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (b): Ter paciência, empatia e respeito.",
+    "driveLink": "https://drive.google.com/file/d/1ZIGbm-WKyJGsK8EX3FfhYsBcgZiHHC_8/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 15: Cuidados com Idosos com Demência",
+    "conteudo": "Ao lidar com idosos com demência, como Alzheimer, evite atitudes que causem confusão ou estresse, como discutir, forçar ações ou ignorar suas limitações. É essencial ser paciente, explicar ações calmamente e adaptar o cuidado às suas necessidades.",
+    "pergunta": "O que NÃO se deve fazer ao lidar com um idoso com demência?",
+    "opcoes": [
+      "a) Explicar ações com calma e paciência",
+      "b) Discutir ou forçar o idoso a fazer algo",
+      "c) Adaptar o cuidado às limitações do idoso"
+    ],
+    "respostaCorreta": "b",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 15!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (b): Discutir ou forçar o idoso a fazer algo.",
+    "driveLink": "https://drive.google.com/file/d/1wzRdj_CRb5owg0QcW3Vpz3IL1LmjGIkv/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 16: Desafios dos Idosos na Sociedade",
+    "conteudo": "Os idosos enfrentam desafios como preconceito, discriminação por idade e exclusão social, que podem levar à solidão e perda de oportunidades, impactando sua qualidade de vida e bem-estar.",
+    "pergunta": "Qual alternativa representa um desafio enfrentado pelos idosos na sociedade atual?",
+    "opcoes": [
+      "a) Inclusão total no mercado de trabalho",
+      "b) Acesso facilitado à saúde e valorização",
+      "c) Discriminação por idade e exclusão social"
+    ],
+    "respostaCorreta": "c",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 16!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (c): Discriminação por idade e exclusão social.",
+    "driveLink": "https://drive.google.com/file/d/1jXPrNY2Io5wZ8z1oq3AZ25CZWXGFCkNB/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 17: Fases do Alzheimer",
+    "conteudo": "Na fase inicial do Alzheimer, o idoso apresenta perda de memória recente, dificuldade em realizar tarefas cotidianas e leves mudanças de comportamento, mas ainda mantém certa independência.",
+    "pergunta": "Qual alternativa descreve corretamente a fase inicial do Alzheimer?",
+    "opcoes": [
+      "a) Dependência total e dificuldade de deglutição",
+      "b) Sem sintomas visíveis, apenas alterações cerebrais",
+      "c) Perda de memória e dificuldade em tarefas cotidianas"
+    ],
+    "respostaCorreta": "c",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 17!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (c): Perda de memória e dificuldade em tarefas cotidianas.",
+    "driveLink": "https://drive.google.com/file/d/1SIIoYYzhYPW6YxcXy2K7dusC_N56iEtx/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 18: Prevenção da Solidão",
+    "conteudo": "Manter uma vida social ativa, com encontros com amigos, familiares ou participação em atividades comunitárias, ajuda a prevenir a solidão na terceira idade, promovendo saúde mental e emocional.",
+    "pergunta": "Qual atitude ajuda a prevenir a solidão na terceira idade?",
+    "opcoes": [
+      "a) Evitar contato com outras pessoas",
+      "b) Manter uma vida social ativa com amigos e familiares",
+      "c) Esperar que outros tomem a iniciativa"
+    ],
+    "respostaCorreta": "b",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 18!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (b): Manter uma vida social ativa com amigos e familiares.",
+    "driveLink": "https://drive.google.com/file/d/1zGNeywXQpi5eGqGEJT8vhHQsz9B-AiJv/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 19: Prevenção da Depressão",
+    "conteudo": "Cuidar de doenças existentes, manter uma rotina saudável com alimentação equilibrada, sono adequado e atividades sociais, além de evitar o isolamento, ajuda a prevenir a depressão em idosos.",
+    "pergunta": "Qual atitude pode ajudar a prevenir a depressão em idosos?",
+    "opcoes": [
+      "a) Ficar em casa sozinho sem atividades",
+      "b) Manter rotina saudável e evitar isolamento",
+      "c) Dormir o dia todo sem contato social"
+    ],
+    "respostaCorreta": "b",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 19!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (b): Manter rotina saudável e evitar isolamento.",
+    "driveLink": "https://drive.google.com/file/d/15eBBUNxI2jBddTbOm895bCVadqQJUqu0/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 20: Diabetes Tipo 2",
+    "conteudo": "No diabetes tipo 2, comum em idosos, o corpo desenvolve resistência à insulina, e o pâncreas perde gradualmente a capacidade de produzi-la, exigindo controle com dieta, exercícios e, se necessário, medicamentos.",
+    "pergunta": "Qual afirmação está correta sobre o diabetes tipo 2?",
+    "opcoes": [
+      "a) O pâncreas não produz insulina desde o nascimento",
+      "b) O corpo cria resistência à insulina",
+      "c) Afeta apenas crianças e adolescentes"
+    ],
+    "respostaCorreta": "b",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 20!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (b): O corpo cria resistência à insulina.",
+    "driveLink": "https://drive.google.com/file/d/1HpRa-zwnMgW3Ztm__D5exluCM4PNwxjV/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 21: Banho no Leito",
+    "conteudo": "Antes de iniciar o banho no leito em um idoso acamado, é essencial preparar todos os materiais (toalhas, bacias, luvas, etc.), usar EPIs e explicar o procedimento ao paciente, mesmo que inconsciente, para garantir respeito e conforto.",
+    "pergunta": "O que deve ser feito antes de iniciar o banho no leito em um idoso acamado?",
+    "opcoes": [
+      "a) Levar o paciente ao chuveiro",
+      "b) Começar o banho sem explicar o procedimento",
+      "c) Preparar materiais e explicar o procedimento"
+    ],
+    "respostaCorreta": "c",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 21!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (c): Preparar materiais e explicar o procedimento.",
+    "driveLink": "https://drive.google.com/file/d/1QCuiySPSKqdOy8RhgiujcN8fB6pOhTWm/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 22: Idosos no Mercado de Trabalho",
+    "conteudo": "Idosos no mercado de trabalho trazem experiência, comprometimento e confiabilidade, atuando como mentores para jovens e contribuindo para ambientes mais diversos, apesar do preconceito ainda existente.",
+    "pergunta": "Qual é a vantagem de ter idosos no mercado de trabalho?",
+    "opcoes": [
+      "a) Necessitam de treinamento constante",
+      "b) Trocam de empresa frequentemente",
+      "c) Possuem experiência e atuam como mentores"
+    ],
+    "respostaCorreta": "c",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 22!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (c): Possuem experiência e atuam como mentores.",
+    "driveLink": "https://drive.google.com/file/d/181hfqoVvA7qxrxu2tzQnKKnY-jJxK8wU/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 23: Líquido Sinovial nas Articulações",
+    "conteudo": "O líquido sinovial lubrifica as articulações, reduzindo o atrito entre as cartilagens, o que é essencial para a mobilidade, especialmente em idosos com osteoartrite, que causa dor e rigidez.",
+    "pergunta": "Qual é a função do líquido sinovial nas articulações?",
+    "opcoes": [
+      "a) Promover inflamação para aliviar dor",
+      "b) Lubrificar a articulação e reduzir atrito",
+      "c) Endurecer a articulação para evitar movimentos"
+    ],
+    "respostaCorreta": "b",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 23!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (b): Lubrificar a articulação e reduzir atrito.",
+    "driveLink": "https://drive.google.com/file/d/1I3zK9Ihr_R7jsk6HRIsB_H775RI40yX3/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 24: Acompanhante Hospitalar",
+    "conteudo": "O acompanhante hospitalar oferece apoio emocional, companhia e auxílio nos cuidados durante a internação, contribuindo para a recuperação do idoso, sem substituir a equipe médica.",
+    "pergunta": "Qual é o papel principal do acompanhante hospitalar?",
+    "opcoes": [
+      "a) Substituir a equipe médica",
+      "b) Prestar apoio emocional e auxiliar nos cuidados",
+      "c) Realizar procedimentos médicos"
+    ],
+    "respostaCorreta": "b",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 24!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (b): Prestar apoio emocional e auxiliar nos cuidados.",
+    "driveLink": "https://drive.google.com/file/d/1tAT32Rg_GylkuUjJpj-3S_UCbxiupR_D/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 25: Desidratação em Idosos",
+    "conteudo": "Desidratação grave em idosos pode ser identificada por sinais como confusão mental, cansaço extremo, olhos e boca secos e pele ressecada, exigindo atenção imediata para evitar complicações.",
+    "pergunta": "Qual dos sinais abaixo indica um caso de desidratação grave em idosos?",
+    "opcoes": [
+      "a) Sede intensa e dor de cabeça",
+      "b) Confusão mental e olhos secos",
+      "c) Sensação de calor no corpo"
+    ],
+    "respostaCorreta": "b",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 25!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (b): Confusão mental e olhos secos.",
+    "driveLink": "https://drive.google.com/file/d/1q3TvE9FPpZHyQC3YDPwITzTLcHaVUWw5/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 26: Prevenção da Desidratação",
+    "conteudo": "Oferecer líquidos regularmente, como água, sucos e chás, e incluir frutas ricas em água (melancia, laranja) e sopas na dieta ajuda a prevenir a desidratação em idosos, mesmo sem sede aparente.",
+    "pergunta": "Qual é uma forma eficiente de prevenir a desidratação em idosos?",
+    "opcoes": [
+      "a) Esperar o idoso sentir sede",
+      "b) Oferecer apenas alimentos secos",
+      "c) Ingerir líquidos regularmente e frutas ricas em água"
+    ],
+    "respostaCorreta": "c",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 26!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (c): Ingerir líquidos regularmente e frutas ricas em água.",
+    "driveLink": "https://drive.google.com/file/d/1NNYlX0mic6xZICPh7Wna0bA9I4hnhxjA/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 27: Importância da Empatia",
+    "conteudo": "A empatia no cuidado com idosos facilita conexões emocionais, melhora a comunicação, reduz ansiedade e promove dignidade, criando um ambiente mais acolhedor para o idoso e o cuidador.",
+    "pergunta": "Por que a empatia é importante no cuidado com os idosos?",
+    "opcoes": [
+      "a) Ajuda o cuidador a ser mais rápido",
+      "b) Facilita conexões emocionais e melhora a comunicação",
+      "c) Permite decidir sem envolver o idoso"
+    ],
+    "respostaCorreta": "b",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 27!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (b): Facilita conexões emocionais e melhora a comunicação.",
+    "driveLink": "https://drive.google.com/file/d/1SUXyeWX42Rg-dzHdkDqc10JGhSwQMg92/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 28: Alívio do Estresse do Cuidador",
+    "conteudo": "Praticar autocuidado, como exercícios, sono adequado, alimentação saudável e técnicas de relaxamento, além de buscar apoio emocional, ajuda o cuidador a aliviar o estresse e manter o equilíbrio.",
+    "pergunta": "Qual atitude pode ajudar o cuidador a aliviar o estresse?",
+    "opcoes": [
+      "a) Trabalhar sem pausas",
+      "b) Focar apenas no idoso",
+      "c) Praticar autocuidado e buscar apoio emocional"
+    ],
+    "respostaCorreta": "c",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 28!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (c): Praticar autocuidado e buscar apoio emocional.",
+    "driveLink": "https://drive.google.com/file/d/1Lnz5FoBRhyUR8FpQrGsKJll5mttEi8bs/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 29: Relação com a Família",
+    "conteudo": "Confiança, comunicação clara e respeito mútuo entre o cuidador e a família do idoso são essenciais para um cuidado eficaz, harmonioso e que promova o bem-estar de todos os envolvidos.",
+    "pergunta": "O que é essencial para uma boa relação entre o cuidador e a família do idoso?",
+    "opcoes": [
+      "a) O cuidador tomar todas as decisões",
+      "b) Confiança, comunicação clara e respeito",
+      "c) Evitar contato com a família"
+    ],
+    "respostaCorreta": "b",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 29!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (b): Confiança, comunicação clara e respeito.",
+    "driveLink": "https://drive.google.com/file/d/1xi-OxO5boU8emHuZ1-D1F38PbUstmevi/view?usp=sharing"
+  },
+  {
+    "titulo": "Aula 30: Revisão Final",
+    "conteudo": "Revisar os conceitos aprendidos, como empatia, segurança, prevenção de doenças e promoção da autonomia, é fundamental para consolidar o conhecimento e aplicar cuidados de qualidade aos idosos.",
+    "pergunta": "Revisão final: qual conceito aprendido ao longo do curso você considera mais importante?",
+    "opcoes": [
+      "a) Ignorar os conteúdos aprendidos",
+      "b) Revisar e aplicar os conceitos aprendidos",
+      "c) Evitar a prática dos cuidados"
+    ],
+    "respostaCorreta": "b",
+    "mensagemAcerto": "✅ Parabéns! Sua resposta está correta. Você concluiu a Aula 30!",
+    "mensagemErro": "❌ Sua resposta está incorreta. A resposta correta é (b): Revisar e aplicar os conceitos aprendidos.",
+    "driveLink": "https://drive.google.com/file/d/1oef012/view?usp=share_link"
+  }
+]

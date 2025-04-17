@@ -1,0 +1,17 @@
+# Evita subir arquivos de ambiente (senhas, caminhos sensíveis)
+.env
+
+# Pastas de dependências (são recriadas com npm install)
+node_modules/
+
+# Token de sessão do Venom
+tokens/
+
+# Arquivos de log (se existirem futuramente)
+*.log
+
+# Arquivos do sistema operacional/macOS
+.DS_Store
+
+# Arquivos do VSCode (opcional)
+.vscode/
