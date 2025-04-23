@@ -92,7 +92,7 @@ async function run() {
             respondeuAulaAtual: false,
             aulaJafoiEnviada: false
           });
-          await client.sendText(from, `${EMOJI.rocket} Iniciando curso...`);
+          await client.sendText(from, `${EMOJI.book} Iniciando curso...`);
           setTimeout(() => enviarAula(from), 2000);
           return;
 
@@ -104,7 +104,7 @@ async function run() {
 
         case '4':
           await alunoService.atualizarAluno(from, { cancelConfirm: true });
-          return client.sendText(from, `❗ Confirmar cancelamento? 'sim' ou 'não'.`);
+          return client.sendText(from, `❗ Confirmar cancelamento? '*Sim*' ou '*Não*'.`);
 
         case 'sim':
           if (!aluno.cancelConfirm)
@@ -150,8 +150,8 @@ async function run() {
 
       // mensagem de feedback aprimorada
       const feedback = correta
-        ? `${EMOJI.success} *Parabéns!* Você concluiu a ${aula.diaAtual}ª aula: ${aula.titulo} 🎉`
-        : `${EMOJI.warning} Resposta incorreta. A resposta certa era *${aluno.respostaCorreta}*.`;
+      ? `${EMOJI.success} *Parabéns!* Você concluiu a aula ${aluno.diaAtual}: *${aula.titulo}* 🎉`
+      : `${EMOJI.warning} Resposta incorreta. A resposta certa era *${aluno.respostaCorreta}*`;
 
       await client.sendText(numero, feedback);
       if (aula.driveLink) await client.sendText(numero, `${EMOJI.page} PDF: ${aula.driveLink}`);
