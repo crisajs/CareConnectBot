@@ -1,198 +1,223 @@
-/*************
- * CONFIGURAÇÃO INICIAL
- *************/
 require('dotenv').config();
 const conectarMongo = require('./src/database/db');
 const venom = require('venom-bot');
 const cron = require('node-cron');
 const alunoService = require('./src/service/alunoService');
 const AulaService = require('./src/service/aulaService');
+
 const aulaService = new AulaService();
+let client = null;
+let isCronRunningMorning = false;
+let isCronRunningEvening = false;
 
-console.log('Caminho para o Puppeteer:', process.env.PUPPETEER_EXECUTABLE_PATH);
+const EMOJI = {
+  success: '✅',
+  error: '❌',
+  warning: '⚠️',
+  question: '❓',
+  rocket: '🚀',
+  party: '🥳',
+  info: 'ℹ️',
+  calendar: '📅',
+  book: '📘',
+  chart: '📊',
+  star: '🌟',
+  page: '📄'
+};
 
-async function inicializarBot() {
-  await conectarMongo();
-  await aulaService.carregarAulas();
+function gerarMenu() {
+  return [
+    `MENU`,
+    `1 - Iniciar curso ${EMOJI.book}`,
+    `2 - Ver progresso ${EMOJI.chart}`,
+    `3 - Curiosidades ${EMOJI.star}`,
+    `4 - Cancelar curso ${EMOJI.error}`
+  ].join('\n');
+}
 
-  const client = await venom.create({
-    session: process.env.SESSION_NAME,
-    multidevice: process.env.MULTIDEVICE === 'true',
-    disableWelcome: true,
-    headless: process.env.HEADLESS || 'new',
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
-    puppeteerOptions: {
-      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    },
-  });
+async function run() {
+  try {
+    await conectarMongo();
+    await aulaService.carregarAulas();
 
-  client.onMessage(async (message) => {
-    try {
-      const numero = message.from;
-      const texto = message.body.trim();
+    client = await venom.create({
+      session: process.env.SESSION_NAME,
+      multidevice: process.env.MULTIDEVICE === 'true',
+      disableWelcome: true,
+      headless: process.env.HEADLESS === 'true' ? true : 'new',
+      puppeteerOptions: { args: ['--no-sandbox', '--disable-setuid-sandbox'] }
+    });
 
-      let aluno = await alunoService.buscarAluno(numero);
+    client.onStateChange(state => {
+      console.log(`${EMOJI.info} [STATE] Sessão mudou para: ${state}`);
+      if (['CONFLICT', 'UNPAIRED'].includes(state)) client.useHere();
+    });
+
+    process.on('SIGINT', async () => {
+      await client.close();
+      process.exit(0);
+    });
+
+    client.onMessage(async message => {
+      const from = message.from;
+      const texto = message.body.trim().toLowerCase();
+      let aluno = await alunoService.buscarAluno(from);
 
       if (!aluno) {
-        aluno = await alunoService.criarAluno({ nome: '', numero });
-        await client.sendText(
-          numero,
-          `👋 Seja bem-vindo ao curso de *Cuidadores de Idosos* da *Carmem Concierge de Cuidados*! Por favor, envie seu *nome completo* para darmos início.`
-        );
-        return;
+        aluno = await alunoService.criarAluno({ numero: from, nome: '' });
+        return client.sendText(from, `👋 Bem-vindo! Envie seu nome completo para começar.`);
       }
 
-      // Se aluno ainda não enviou o nome
-      if (!aluno.nome || aluno.nome === '') {
-        const nomeCompleto = texto;
-        const primeiroNome = nomeCompleto.split(' ')[0];
-        await alunoService.atualizarAluno(numero, { nome: nomeCompleto, iniciado: true, menuExibido: false });
-        await client.sendText(
-          numero,
-          `👋 Olá, *${primeiroNome}*! Que bom ter você aqui! Vamos começar com a primeira aula.`
-        );
-        await enviarAula(client, numero);
-        return;
+      if (!aluno.nome) {
+        const nome = message.body.trim();
+        if (!/^[A-Za-zÀ-ú\s]{2,}$/.test(nome))
+          return client.sendText(from, `❗ Nome inválido.`);
+        const primeiro = nome.split(' ')[0];
+        await alunoService.atualizarAluno(from, { nome, iniciado: false, respondeuAulaAtual: false, aulaJafoiEnviada: false });
+        await client.sendText(from, `👋 Olá, *${primeiro}*!`);
+        return setTimeout(() => client.sendText(from, gerarMenu()), 1500);
       }
 
-      // Comandos
-      switch (texto.toLowerCase()) {
-        case 'iniciar curso':
-          if (aluno.iniciado) {
-            await client.sendText(
-              numero,
-              `✅ Curso já iniciado, ${aluno.nome.split(' ')[0]}. A próxima aula será enviada às 7h.`
-            );
-          } else {
-            await exibirMenu(client, numero);
-          }
-          break;
+      if (['a', 'b', 'c'].includes(texto) && aluno.respondeuAulaAtual)
+        return client.sendText(from, `${EMOJI.success} Você já respondeu hoje!`);
+
+      switch (texto) {
         case '1':
-          if (!aluno.iniciado) {
-            await client.sendText(numero, '📘 Para começar, por favor envie seu nome completo.');
-          } else {
-            await client.sendText(numero, '✅ Curso já iniciado! Aguarde a próxima aula.');
-          }
-          break;
+        case 'iniciar curso':
+          if (aluno.iniciado)
+            return client.sendText(from, `${EMOJI.info} Curso já iniciado.`);
+
+          await alunoService.atualizarAluno(from, {
+            iniciado: true,
+            respondeuAulaAtual: false,
+            aulaJafoiEnviada: false
+          });
+          await client.sendText(from, `${EMOJI.rocket} Iniciando curso...`);
+          setTimeout(() => enviarAula(from), 2000);
+          return;
+
         case '2':
-          await client.sendText(numero, alunoService.getProgresso(aluno));
-          break;
+          return client.sendText(from, alunoService.getProgresso(aluno));
+
         case '3':
-          await client.sendText(numero, `🌟 ${aulaService.getCuriosidadeAleatoria()}`);
-          break;
+          return client.sendText(from, `${EMOJI.star} ${aulaService.getCuriosidadeAleatoria()}`);
+
         case '4':
-          if (!aluno.iniciado) {
-            await client.sendText(numero, '🚫 O curso ainda não foi iniciado para ser cancelado.');
-          } else {
-            await alunoService.atualizarAluno(numero, { cancelConfirm: true });
-            await client.sendText(numero, "Tem certeza que deseja cancelar o curso? Digite 'sim' ou 'não'.");
-          }
-          break;
+          await alunoService.atualizarAluno(from, { cancelConfirm: true });
+          return client.sendText(from, `❗ Confirmar cancelamento? 'sim' ou 'não'.`);
+
         case 'sim':
-          if (aluno.cancelConfirm) {
-            await alunoService.removerAluno(numero);
-            await client.sendText(numero, '❌ Curso cancelado. Esperamos vê-lo novamente!');
-          }
-          break;
+          if (!aluno.cancelConfirm)
+            return client.sendText(from, `⚠️ Nada a cancelar.`);
+          await alunoService.removerAluno(from);
+          return client.sendText(from, `❌ Curso cancelado.`);
+
         case 'não':
         case 'nao':
-          if (aluno.cancelConfirm) {
-            await alunoService.atualizarAluno(numero, { cancelConfirm: false });
-            await client.sendText(numero, '✅ Cancelamento abortado.');
-          }
-          break;
+          await alunoService.atualizarAluno(from, { cancelConfirm: false });
+          return client.sendText(from, `✅ Cancelamento abortado.`);
+
         case 'a':
         case 'b':
         case 'c':
-          if (!aluno.respostaCorreta) {
-            await client.sendText(numero, '❓ Aguarde a próxima aula.');
-            return;
-          }
-          const aulaAtual = aulaService.getAula(aluno.diaAtual);
-          const correta = texto.toLowerCase() === aluno.respostaCorreta.toLowerCase();
-          alunoService.registrarResposta(aluno, correta, aulaAtual.titulo);
-          await alunoService.atualizarAluno(numero, aluno);
-          await client.sendText(numero, correta ? aulaAtual.mensagemAcerto : aulaAtual.mensagemErro);
-          if (aulaAtual.driveLink) {
-            await client.sendText(numero, `🔗 PDF da aula: ${aulaAtual.driveLink}`);
-            await client.sendText(numero, '📅 Lembrete: A próxima aula será enviada amanhã às 7h.');
-          }
-          break;
+          return processAnswer(from, texto, aluno);
+
         default:
-          await exibirMenu(client, numero);
-          break;
+          return client.sendText(from, `❓ Comando inválido. Use o menu.`);
       }
-    } catch (err) {
-      console.error('[ERROR] Handler de mensagem falhou:', err);
-    }
-  });
+    });
 
-  // Enviar aula às 7h BRT todos os dias
-  cron.schedule(
-    '0 7 * * *',
-    async () => {
-      const alunos = await alunoService.todosAlunosAtivos();
-      for (const aluno of alunos) {
-        if (!aluno.iniciado || aluno.respondeuAulaAtual) continue;
-        await enviarAula(client, aluno.numero);
-      }
-    },
-    {
-      scheduled: true,
-      timezone: 'America/Sao_Paulo',
-    }
-  );
+    async function enviarAula(numero) {
+      const aluno = await alunoService.buscarAluno(numero);
+      if (!aluno || aluno.aulaJafoiEnviada || aluno.respondeuAulaAtual) return;
 
-  // Lembrete às 19h BRT para quem não respondeu
-  cron.schedule(
-    '0 19 * * *',
-    async () => {
-      const alunos = await alunoService.todosAlunosAtivos();
-      for (const aluno of alunos) {
-        if (aluno.iniciado && !aluno.respondeuAulaAtual) {
-          await client.sendText(
-            aluno.numero,
-            '⏰ Olá! Ainda aguardamos sua resposta da aula de hoje. Responda para continuar seu progresso.'
-          );
+      const aula = aulaService.getAula(aluno.diaAtual);
+      if (!aula)
+        return client.sendText(numero, `${EMOJI.warning} Sem aulas disponíveis.`);
+
+      await client.sendText(numero, `📚 *${aula.titulo}*\n\n${aula.conteudo}`);
+      setTimeout(() => client.sendText(numero, aulaService.formatPergunta(aula)), 2000);
+
+      await alunoService.atualizarAluno(numero, {
+        respostaCorreta: aula.respostaCorreta,
+        aulaJafoiEnviada: true
+      });
+    }
+
+    async function processAnswer(numero, texto, aluno) {
+      const correta = texto === (aluno.respostaCorreta || '').toLowerCase();
+      const aula = aulaService.getAula(aluno.diaAtual);
+
+      // mensagem de feedback aprimorada
+      const feedback = correta
+        ? `${EMOJI.success} *Parabéns!* Você concluiu a ${aula.diaAtual}ª aula: ${aula.titulo} 🎉`
+        : `${EMOJI.warning} Resposta incorreta. A resposta certa era *${aluno.respostaCorreta}*.`;
+
+      await client.sendText(numero, feedback);
+      if (aula.driveLink) await client.sendText(numero, `${EMOJI.page} PDF: ${aula.driveLink}`);
+
+      // lembrete da próxima aula
+      await client.sendText(numero, `⌛ *Lembrete:* a próxima aula será enviada amanhã às 07:00.`);
+
+      await alunoService.atualizarAluno(numero, {
+        respondeuAulaAtual: true,
+        aulaJafoiEnviada: false,
+        aulasConcluidas: aluno.aulasConcluidas + 1,
+        diaAtual: aluno.diaAtual + 1
+      });
+    }
+
+    // Cron matinal: envio diário das aulas às 7:00 (Sao_Paulo)
+    cron.schedule('0 0 7 * * *', async () => {
+      if (isCronRunningMorning) return;
+      isCronRunningMorning = true;
+      try {
+        const alunos = await alunoService.todosAlunosAtivos();
+        for (const aluno of alunos) {
+          if (
+            aluno.iniciado &&
+            !aluno.aulaJafoiEnviada &&
+            !aluno.respondeuAulaAtual
+          ) {
+            enviarAula(aluno.numero);
+          }
         }
+      } catch (err) {
+        console.error(`❌ Cron matinal erro:`, err.message);
+      } finally {
+        isCronRunningMorning = false;
       }
-    },
-    {
-      scheduled: true,
-      timezone: 'America/Sao_Paulo',
-    }
-  );
+    }, { timezone: 'America/Sao_Paulo' });
+
+    // Cron vespertino: lembrete às 19:00 para quem não respondeu
+    cron.schedule('0 0 19 * * *', async () => {
+      if (isCronRunningEvening) return;
+      isCronRunningEvening = true;
+      try {
+        const alunos = await alunoService.todosAlunosAtivos();
+        for (const aluno of alunos) {
+          if (
+            aluno.iniciado &&
+            aluno.aulaJafoiEnviada &&
+            !aluno.respondeuAulaAtual
+          ) {
+            await client.sendText(aluno.numero,
+              `⚠️ *Lembrete:* você ainda não respondeu a aula de hoje. Não esqueça de completar para manter seu ritmo!`
+            );
+          }
+        }
+      } catch (err) {
+        console.error(`❌ Cron vespertino erro:`, err.message);
+      } finally {
+        isCronRunningEvening = false;
+      }
+    }, { timezone: 'America/Sao_Paulo' });
+
+    console.log(`${EMOJI.success} ${EMOJI.rocket} Bot iniciado com envios e lembretes configurados.`);
+  } catch (err) {
+    console.error(`${EMOJI.error} Falha ao iniciar:`, err.message);
+    process.exit(1);
+  }
 }
 
-async function exibirMenu(client, numero) {
-  const menu = `MENU
-1 - Iniciar curso 📘
-2 - Ver progresso 📊
-3 - Curiosidades 🌟
-4 - Cancelar curso 🚫`;
-  await client.sendText(numero, menu);
-}
-
-async function enviarAula(client, numero) {
-  const aluno = await alunoService.buscarAluno(numero);
-  if (!aluno || aluno.respondeuAulaAtual) return;
-
-  const aula = aulaService.getAula(aluno.diaAtual);
-  if (!aula) return;
-
-  await client.sendText(numero, `📚 *${aula.titulo}*
-
-${aula.conteudo}`);
-await client.sendText(
-  numero,
-  `❓ *Pergunta:* ${aula.pergunta}\n${aula.opcoes.join('\n')}`
-);
-  aluno.respostaCorreta = aula.respostaCorreta;
-  await alunoService.atualizarAluno(numero, aluno);
-}
-
-inicializarBot().catch((error) => {
-  console.error('[ERROR] Falha na inicialização do bot:', error);
-  process.exit(1);
-});
+run();

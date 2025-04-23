@@ -1,5 +1,6 @@
 // src/service/aulaService.js
 const fs = require('fs').promises;
+const path = require('path');
 
 class AulaService {
   constructor() {
@@ -40,8 +41,16 @@ class AulaService {
 
   async carregarAulas() {
     try {
-      const data = await fs.readFile('./aulas.json', 'utf-8');
-      this.aulas = JSON.parse(data);
+      const data = await fs.readFile(path.resolve(__dirname, '../../aulas.json'), 'utf-8');
+      this.aulas = JSON.parse(data).map((aula, idx) => {
+        // garante que existe campo pergunta
+        if (!aula.pergunta) {
+          aula.pergunta = `Pergunta da Aula ${idx + 1}`;
+        }
+        // remove prefixos "a) ", "b) ", "c) " nas opções se existirem
+        aula.opcoes = aula.opcoes.map(opt => opt.replace(/^[a-c]\)\s*/i, '').trim());
+        return aula;
+      });
       console.log('[INFO] Aulas carregadas com sucesso.');
     } catch (error) {
       console.error('[ERROR] Erro ao carregar aulas:', error);
@@ -54,6 +63,14 @@ class AulaService {
 
   getCuriosidadeAleatoria() {
     return this.curiosidades[Math.floor(Math.random() * this.curiosidades.length)];
+  }
+  
+  formatPergunta(aula) {
+    const letras = ['a', 'b', 'c'];
+    const opList = aula.opcoes
+      .map((opt, i) => `${letras[i]}) ${opt}`)
+      .join('\n');
+    return `❓ Pergunta: ${aula.pergunta}\n${opList}`;
   }
 }
 
