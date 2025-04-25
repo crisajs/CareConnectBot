@@ -28,7 +28,7 @@ const EMOJI = {
 function gerarMenu() {
   return [
     `MENU`,
-    `1 - Iniciar curso ${EMOJI.book}`,
+    `1 - Iniciar curso   ${EMOJI.book}`,
     `2 - Ver progresso ${EMOJI.chart}`,
     `3 - Curiosidades ${EMOJI.star}`,
     `4 - Cancelar curso ${EMOJI.error}`
@@ -96,8 +96,20 @@ async function run() {
           setTimeout(() => enviarAula(from), 2000);
           return;
 
-        case '2':
-          return client.sendText(from, alunoService.getProgresso(aluno));
+        case '2': {
+          // Rebusca o aluno para dados atualizados
+          const alunoAtual = await alunoService.buscarAluno(from);
+          const totalAulas = 30; // Explicitly set total lessons to 30
+          const perc = totalAulas > 0 ? Math.round((alunoAtual.aulasConcluidas / totalAulas) * 100) : 0;
+          const progressoMsg = [
+            `📈 *Seu progresso:*`,
+            `- Última aula concluída: ${alunoAtual.ultimaAulaConcluida || 'Nenhuma'}`,
+            `- Aulas concluídas: ${alunoAtual.aulasConcluidas}/${totalAulas}`,
+            `- Progresso: ${perc}%`,
+            `- Pontuação: ${alunoAtual.pontuacao || 0} pontos`
+          ].join('\n');
+          return client.sendText(from, progressoMsg);
+        }
 
         case '3':
           return client.sendText(from, `${EMOJI.star} ${aulaService.getCuriosidadeAleatoria()}`);
@@ -150,8 +162,8 @@ async function run() {
 
       // mensagem de feedback aprimorada
       const feedback = correta
-      ? `${EMOJI.success} *Parabéns!* Você concluiu a aula ${aluno.diaAtual}: *${aula.titulo}* 🎉`
-      : `${EMOJI.warning} Resposta incorreta. A resposta certa era *${aluno.respostaCorreta}*`;
+        ? `${EMOJI.success} *Parabéns!* Você concluiu a aula ${aluno.diaAtual}: *${aula.titulo}* 🎉`
+        : `${EMOJI.warning} Resposta incorreta. A resposta certa era *${aluno.respostaCorreta}*`;
 
       await client.sendText(numero, feedback);
       if (aula.driveLink) await client.sendText(numero, `${EMOJI.page} PDF: ${aula.driveLink}`);
@@ -163,7 +175,8 @@ async function run() {
         respondeuAulaAtual: true,
         aulaJafoiEnviada: false,
         aulasConcluidas: aluno.aulasConcluidas + 1,
-        diaAtual: aluno.diaAtual + 1
+        diaAtual: aluno.diaAtual + 1,
+        ultimaAulaConcluida: aula.titulo // Update last completed lesson
       });
     }
 
