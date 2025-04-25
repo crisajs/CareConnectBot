@@ -2,27 +2,30 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 async function conectarMongo() {
-  const uri = process.env.MONGO_URI;
+  const mongoURI = process.env.MONGO_URI;
 
-  if (!uri) {
+  if (!mongoURI) {
     console.error('❌ MONGO_URI não definida no .env ou nas variáveis de ambiente do Render.');
     process.exit(1);
   }
 
-  // Exibe apenas o host da URI no log (sem user/senha)
-  const safeHost = uri.replace(/\/\/.*:.*@/, '//<hidden>@');
+  const isAtlas = mongoURI.startsWith('mongodb+srv://') || mongoURI.startsWith('mongodb://');
 
-  console.log('[MONGO_URI]', safeHost);
+  if (!isAtlas) {
+    console.error('❌ [MONGO] URI inválida. Certifique-se que começa com "mongodb://" ou "mongodb+srv://".');
+    process.exit(1);
+  }
 
   try {
-    await mongoose.connect(uri, {
+    await mongoose.connect(mongoURI, {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
     });
+
     console.log('✅ [MONGO] Conectado com sucesso!');
   } catch (error) {
-    console.error('❌ [MONGO] Erro ao conectar:', error.message);
-    process.exit(1); // Importante no Render para parar o processo
+    console.error(`❌ [MONGO] Erro ao conectar:\n${error.message}`);
+    process.exit(1);
   }
 }
 
