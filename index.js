@@ -41,15 +41,15 @@ async function run() {
   try {
     await conectarMongo();
     await aulaService.carregarAulas();
-
+    
     client = await venom.create({
       session: process.env.SESSION_NAME || 'session-default',
       multidevice: process.env.MULTIDEVICE === 'true',
       disableWelcome: true,
       headless: process.env.HEADLESS === 'true' ? true : 'new',
       puppeteerOptions: {
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
-        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium-browser'
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+        // ATENÇÃO: Removemos o executablePath!
       }
     });
 
