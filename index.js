@@ -10,7 +10,7 @@ let client = null;
 let isCronRunningMorning = false;
 let isCronRunningEvening = false;
 
-console.log('📆 node-cron carregado:', typeof cron); // validação
+console.log('📆 node-cron carregado:', typeof cron);
 
 const EMOJI = {
   success: '✅',
@@ -49,7 +49,7 @@ async function run() {
       headless: process.env.HEADLESS === 'true' ? true : 'new',
       puppeteerOptions: {
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
-        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || (process.env.RENDER ? '/usr/bin/chromium-browser' : undefined)
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium-browser'
       }
     });
 
@@ -180,7 +180,7 @@ async function run() {
       });
     }
 
-    // CRON: envio diário das aulas às 07:00
+    // ✅ CRON de envio de aula às 7h
     cron.schedule('0 0 7 * * *', async () => {
       if (isCronRunningMorning) return;
       isCronRunningMorning = true;
@@ -188,7 +188,7 @@ async function run() {
         const alunos = await alunoService.todosAlunosAtivos();
         for (const aluno of alunos) {
           if (aluno.iniciado && !aluno.aulaJafoiEnviada && !aluno.respondeuAulaAtual) {
-            enviarAula(aluno.numero);
+            await enviarAula(aluno.numero);
           }
         }
       } catch (err) {
@@ -198,7 +198,7 @@ async function run() {
       }
     }, { timezone: 'America/Sao_Paulo' });
 
-    // CRON: lembrete diário às 19:00
+    // ✅ CRON de lembrete às 19h
     cron.schedule('0 0 19 * * *', async () => {
       if (isCronRunningEvening) return;
       isCronRunningEvening = true;
@@ -214,11 +214,6 @@ async function run() {
       } finally {
         isCronRunningEvening = false;
       }
-    }, { timezone: 'America/Sao_Paulo' });
-
-    // CRON DE TESTE (a cada minuto)
-    cron.schedule('* * * * *', () => {
-      console.log('🕒 [CRON TESTE] Executando tarefa a cada minuto...');
     }, { timezone: 'America/Sao_Paulo' });
 
     console.log(`${EMOJI.success} ${EMOJI.rocket} Bot iniciado.`);
