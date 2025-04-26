@@ -43,11 +43,14 @@ async function run() {
     await aulaService.carregarAulas();
 
     client = await venom.create({
-      session: process.env.SESSION_NAME,
+      session: process.env.SESSION_NAME || 'session-default',
       multidevice: process.env.MULTIDEVICE === 'true',
       disableWelcome: true,
       headless: process.env.HEADLESS === 'true' ? true : 'new',
-      puppeteerOptions: { args: ['--no-sandbox', '--disable-setuid-sandbox'] }
+      puppeteerOptions: {
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || (process.env.RENDER ? '/usr/bin/chromium-browser' : undefined)
+      }
     });
 
     client.onStateChange(state => {
