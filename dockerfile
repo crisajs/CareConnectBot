@@ -1,11 +1,24 @@
-# ✅ Base mais estável e compatível com Puppeteer
-FROM node:20-slim
+# 🚀 Build stage (apenas para instalar dependências)
+FROM node:20-slim AS builder
 
-# 🔧 Diretório de trabalho
 WORKDIR /app
 
-# 🔽 Instala Chromium e dependências
-RUN echo "🚀 Instalando dependências do Chromium..." && \
+# 🔥 Copia apenas arquivos essenciais primeiro para cache
+COPY package*.json ./
+
+# 🛠️ Instala dependências de forma limpa e rápida
+RUN npm ci --omit=dev
+
+# 🔥 Copia todo o restante do projeto
+COPY . .
+
+# ✅ Production stage (imagem final enxuta)
+FROM node:20-slim
+
+WORKDIR /app
+
+# 🔽 Instala apenas o Chromium e libs necessárias
+RUN echo "🚀 Instalando Chromium e dependências..." && \
   apt-get update && apt-get install -y \
   chromium \
   fonts-liberation \
@@ -27,20 +40,19 @@ RUN echo "🚀 Instalando dependências do Chromium..." && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   echo "✅ Chromium instalado com sucesso!"
 
-# 🔽 Copia arquivos de dependência
-COPY package*.json ./
-
-# 🧶 Instala dependências do Node.js
-RUN echo "📦 Instalando dependências do Node..." && npm install
-
-# 🔽 Copia o restante do projeto
-COPY . .
+# 🧹 Copia só o que precisamos da stage anterior
+COPY --from=builder /app /app
 
 # 🧠 Variáveis de ambiente
+ENV NODE_ENV=production
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
-# 🌐 Expõe a porta (caso necessário)
+# 🌐 Expor porta (caso necessário)
 EXPOSE 3000
+
+# ❤️ Adiciona HEALTHCHECK (ping no servidor)
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
 
 # 🟢 Comando principal
 CMD ["node", "index.js"]
