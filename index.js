@@ -4,6 +4,7 @@ const venom = require('venom-bot');
 const cron = require('node-cron');
 const alunoService = require('./src/service/alunoService');
 const AulaService = require('./src/service/aulaService');
+const http = require('http'); // 🔥 novo
 
 const aulaService = new AulaService();
 let client = null;
@@ -30,10 +31,10 @@ const EMOJI = {
 function gerarMenu() {
   return [
     `MENU`,
-    `1 - Iniciar curso   ${EMOJI.book}`,
-    `2 - Ver progresso ${EMOJI.chart}`,
-    `3 - Curiosidades ${EMOJI.star}`,
-    `4 - Cancelar curso ${EMOJI.error}`
+    `1️⃣ - Iniciar curso   ${EMOJI.book}`,
+    `2️⃣ - Ver progresso ${EMOJI.chart}`,
+    `3️⃣ - Curiosidades ${EMOJI.star}`,
+    `4️⃣ - Cancelar curso ${EMOJI.error}`
   ].join('\n');
 }
 
@@ -41,15 +42,15 @@ async function run() {
   try {
     await conectarMongo();
     await aulaService.carregarAulas();
-    
+
     client = await venom.create({
       session: process.env.SESSION_NAME || 'session-default',
       multidevice: process.env.MULTIDEVICE === 'true',
       disableWelcome: true,
       headless: process.env.HEADLESS === 'true' ? true : 'new',
       puppeteerOptions: {
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
-        // ATENÇÃO: Removemos o executablePath!
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        executablePath: '/usr/bin/chromium'  // 👈 ESSA LINHA FORÇA USAR O CHROMIUM INSTALADO
       }
     });
 
@@ -180,7 +181,7 @@ async function run() {
       });
     }
 
-    // ✅ CRON de envio de aula às 7h
+    // CRONs
     cron.schedule('0 0 7 * * *', async () => {
       if (isCronRunningMorning) return;
       isCronRunningMorning = true;
@@ -198,7 +199,6 @@ async function run() {
       }
     }, { timezone: 'America/Sao_Paulo' });
 
-    // ✅ CRON de lembrete às 19h
     cron.schedule('0 0 19 * * *', async () => {
       if (isCronRunningEvening) return;
       isCronRunningEvening = true;
@@ -224,3 +224,12 @@ async function run() {
 }
 
 run();
+
+// Healthcheck do Render
+const PORT = process.env.PORT || 3000;
+http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('OK\n');
+}).listen(PORT, () => {
+  console.log(`🚀 Servidor de Healthcheck ativo na porta ${PORT}`);
+});
