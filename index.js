@@ -10,6 +10,8 @@ let client = null;
 let isCronRunningMorning = false;
 let isCronRunningEvening = false;
 
+console.log('📆 node-cron carregado:', typeof cron); // validação
+
 const EMOJI = {
   success: '✅',
   error: '❌',
@@ -97,16 +99,14 @@ async function run() {
           return;
 
         case '2': {
-          // Rebusca o aluno para dados atualizados
           const alunoAtual = await alunoService.buscarAluno(from);
-          const totalAulas = 30; // Explicitly set total lessons to 30
+          const totalAulas = 30;
           const perc = totalAulas > 0 ? Math.round((alunoAtual.aulasConcluidas / totalAulas) * 100) : 0;
           const progressoMsg = [
             `📈 *Seu progresso:*`,
             `- Última aula concluída: ${alunoAtual.ultimaAulaConcluida || 'Nenhuma'}`,
             `- Aulas concluídas: ${alunoAtual.aulasConcluidas}/${totalAulas}`,
             `- Progresso: ${perc}%`,
-            `- Pontuação: ${alunoAtual.pontuacao || 0} pontos`
           ].join('\n');
           return client.sendText(from, progressoMsg);
         }
@@ -160,15 +160,12 @@ async function run() {
       const correta = texto === (aluno.respostaCorreta || '').toLowerCase();
       const aula = aulaService.getAula(aluno.diaAtual);
 
-      // mensagem de feedback aprimorada
       const feedback = correta
         ? `${EMOJI.success} *Parabéns!* Você concluiu a aula ${aluno.diaAtual}: *${aula.titulo}* 🎉`
         : `${EMOJI.warning} Resposta incorreta. A resposta certa era *${aluno.respostaCorreta}*`;
 
       await client.sendText(numero, feedback);
       if (aula.driveLink) await client.sendText(numero, `${EMOJI.page} PDF: ${aula.driveLink}`);
-
-      // lembrete da próxima aula
       await client.sendText(numero, `⌛ *Lembrete:* a próxima aula será enviada amanhã às 07:00.`);
 
       await alunoService.atualizarAluno(numero, {
@@ -176,22 +173,18 @@ async function run() {
         aulaJafoiEnviada: false,
         aulasConcluidas: aluno.aulasConcluidas + 1,
         diaAtual: aluno.diaAtual + 1,
-        ultimaAulaConcluida: aula.titulo // Update last completed lesson
+        ultimaAulaConcluida: aula.titulo
       });
     }
 
-    // Cron matinal: envio diário das aulas às 7:00 (Sao_Paulo)
+    // CRON: envio diário das aulas às 07:00
     cron.schedule('0 0 7 * * *', async () => {
       if (isCronRunningMorning) return;
       isCronRunningMorning = true;
       try {
         const alunos = await alunoService.todosAlunosAtivos();
         for (const aluno of alunos) {
-          if (
-            aluno.iniciado &&
-            !aluno.aulaJafoiEnviada &&
-            !aluno.respondeuAulaAtual
-          ) {
+          if (aluno.iniciado && !aluno.aulaJafoiEnviada && !aluno.respondeuAulaAtual) {
             enviarAula(aluno.numero);
           }
         }
@@ -202,21 +195,15 @@ async function run() {
       }
     }, { timezone: 'America/Sao_Paulo' });
 
-    // Cron vespertino: lembrete às 19:00 para quem não respondeu
+    // CRON: lembrete diário às 19:00
     cron.schedule('0 0 19 * * *', async () => {
       if (isCronRunningEvening) return;
       isCronRunningEvening = true;
       try {
         const alunos = await alunoService.todosAlunosAtivos();
         for (const aluno of alunos) {
-          if (
-            aluno.iniciado &&
-            aluno.aulaJafoiEnviada &&
-            !aluno.respondeuAulaAtual
-          ) {
-            await client.sendText(aluno.numero,
-              `⚠️ *Lembrete:* você ainda não respondeu a aula de hoje. Não esqueça de completar para manter seu ritmo!`
-            );
+          if (aluno.iniciado && aluno.aulaJafoiEnviada && !aluno.respondeuAulaAtual) {
+            await client.sendText(aluno.numero, `⚠️ *Lembrete:* você ainda não respondeu a aula de hoje.`);
           }
         }
       } catch (err) {
@@ -226,7 +213,12 @@ async function run() {
       }
     }, { timezone: 'America/Sao_Paulo' });
 
-    console.log(`${EMOJI.success} ${EMOJI.rocket} Bot iniciado com envios e lembretes configurados.`);
+    // CRON DE TESTE (a cada minuto)
+    cron.schedule('* * * * *', () => {
+      console.log('🕒 [CRON TESTE] Executando tarefa a cada minuto...');
+    }, { timezone: 'America/Sao_Paulo' });
+
+    console.log(`${EMOJI.success} ${EMOJI.rocket} Bot iniciado.`);
   } catch (err) {
     console.error(`${EMOJI.error} Falha ao iniciar:`, err.message);
     process.exit(1);
