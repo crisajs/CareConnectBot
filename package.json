@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "./render-build.sh",
     "start": "node index.js",
     "test": "jest"
   },
