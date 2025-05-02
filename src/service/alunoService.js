@@ -2,7 +2,7 @@
 const Aluno = require('../models/Aluno');
 
 /**
- * Cria um novo aluno, verificando se já existe.
+ * Cria um novo aluno se não existir.
  */
 async function criarAluno(dados) {
   try {
@@ -20,76 +20,119 @@ async function criarAluno(dados) {
       respondeuAulaAtual: false,
       aulasConcluidas: 0,
       porcentagemConcluida: 0,
-      ultimaAulaConcluida: null
+      ultimaAulaConcluida: null,
+      respostaCorreta: null,
+      aulaJafoiEnviada: false,
     });
     await novoAluno.save();
     return novoAluno;
-  } catch (error) {
-    throw new Error('Erro ao criar aluno: ' + error.message);
+  } catch (err) {
+    throw new Error('Erro ao criar aluno: ' + err.message);
   }
 }
 
 /**
- * Busca um aluno pelo número do WhatsApp
+ * Busca um aluno pelo número do WhatsApp.
  */
 async function buscarAluno(numero) {
   try {
     return await Aluno.findOne({ numero });
-  } catch (error) {
-    throw new Error('Erro ao buscar aluno: ' + error.message);
+  } catch (err) {
+    throw new Error('Erro ao buscar aluno: ' + err.message);
   }
 }
 
 /**
- * Atualiza dados do aluno com base no número
+ * Atualiza os dados do aluno.
  */
 async function atualizarAluno(numero, novosDados) {
   try {
     return await Aluno.findOneAndUpdate({ numero }, novosDados, { new: true });
-  } catch (error) {
-    throw new Error('Erro ao atualizar aluno: ' + error.message);
+  } catch (err) {
+    throw new Error('Erro ao atualizar aluno: ' + err.message);
   }
 }
 
 /**
- * Remove um aluno do banco
+ * Remove o aluno.
  */
 async function removerAluno(numero) {
   try {
     return await Aluno.deleteOne({ numero });
-  } catch (error) {
-    throw new Error('Erro ao remover aluno: ' + error.message);
+  } catch (err) {
+    throw new Error('Erro ao remover aluno: ' + err.message);
   }
 }
 
 /**
- * Atualiza o progresso com base na resposta do aluno
+ * Registra a resposta do aluno após ele responder,
+ * incrementa diaAtual e aulasConcluidas.
  */
 async function registrarResposta(aluno, correta, aulaTitulo) {
   try {
     if (correta) aluno.pontuacao += 10;
     aluno.respondeuAulaAtual = true;
     aluno.ultimaAulaConcluida = aulaTitulo;
-    aluno.aulasConcluidas = aluno.aulasConcluidas + 1;
+    aluno.aulasConcluidas += 1;
+    aluno.diaAtual += 1;
     aluno.porcentagemConcluida = Math.round((aluno.aulasConcluidas / 30) * 100);
+    aluno.aulaJafoiEnviada = false;
     await aluno.save();
-  } catch (error) {
-    throw new Error('Erro ao registrar resposta: ' + error.message);
+  } catch (err) {
+    throw new Error('Erro ao registrar resposta: ' + err.message);
   }
 }
 
 /**
- * Formata e retorna o progresso do aluno para exibição no WhatsApp
+ * Gera a string de progresso para exibir no WhatsApp.
  */
 function getProgresso(aluno) {
-  return `📈 *Seu progresso*:\nÚltima aula concluída: ${aluno.ultimaAulaConcluida || 'Nenhuma'}\nConcluído: ${aluno.porcentagemConcluida}% (${aluno.aulasConcluidas}/30 aulas)\nPontuação: ${aluno.pontuacao} pontos`;
+  return `📈 *Seu progresso:*\n` +
+         `- Última aula: ${aluno.ultimaAulaConcluida || 'Nenhuma'}\n` +
+         `- Aulas concluídas: ${aluno.aulasConcluidas}/30\n` +
+         `- Progresso: ${aluno.porcentagemConcluida}%\n` +
+         `- Pontos: ${aluno.pontuacao}`;
 }
 
 /**
- * Retorna lista de alunos ativos que iniciaram o curso
+ * Retorna todos os alunos que já iniciaram o curso.
  */
 async function todosAlunosAtivos() {
-  return await Aluno.find({ iniciado: true });
+  try {
+    return await Aluno.find({ iniciado: true });
+  } catch (err) {
+    throw new Error('Erro ao buscar alunos ativos: ' + err.message);
+  }
+}
+
+/**
+ * Força o envio da próxima aula para todos os alunos ativos
+ * que ainda não receberam/enviaram a pergunta.
+ */
+async function forcarEnvioAulaAgora(client, aulaService) {
+  const alunos = await Aluno.find({
+    iniciado: true,
+    aulasConcluídas: { $gt: 0 },       // já responderam ao menos 1 aula
+    respondeuAulaAtual: false,
+    aulaJafoiEnviada: false
+  });
+
+  for (const aluno of alunos) {
+    const aula = aulaService.getAula(aluno.diaAtual);
+    if (!aula) continue;
+
+    const primeiroNome = aluno.nome.split(' ')[0] || 'aluno';
+    console.log(`→ Enviando aula ${aluno.diaAtual} para ${aluno.numero}`);
+    await client.sendText(aluno.numero, `🌅 Bom dia, ${primeiroNome}!`);
+    await client.sendText(aluno.numero, `📚 *${aula.titulo}*\n\n${aula.conteudo}`);
+    await client.sendText(aluno.numero, aulaService.formatPergunta(aula));
+
+    // Marca como enviada
+    await Aluno.findOneAndUpdate(
+      { numero: aluno.numero },
+      { respostaCorreta: aula.respostaCorreta, aulaJafoiEnviada: true }
+    );
+  }
 }
 
 module.exports = {
@@ -100,4 +143,5 @@ module.exports = {
   registrarResposta,
   getProgresso,
   todosAlunosAtivos,
+  forcarEnvioAulaAgora
 };

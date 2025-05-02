@@ -1,4 +1,3 @@
-// src/service/aulaService.js
 const fs = require('fs').promises;
 
 class AulaService {
@@ -54,6 +53,20 @@ class AulaService {
 
   getCuriosidadeAleatoria() {
     return this.curiosidades[Math.floor(Math.random() * this.curiosidades.length)];
+  }
+
+  formatPergunta(aula) {
+    if (!aula || !aula.alternativas) {
+      return '❓ Pergunta indisponível.';
+    }
+
+    const { a, b, c } = aula.alternativas;
+    return [
+      '*❓ Qual a resposta correta?*',
+      `A) ${a}`,
+      `B) ${b}`,
+      `C) ${c}`
+    ].join('\n');
   }
 }
 
